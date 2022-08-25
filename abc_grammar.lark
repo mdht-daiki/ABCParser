@@ -1,0 +1,86 @@
+sentence            : head NEWLINE body
+
+// --------------------
+// head
+// --------------------
+
+head                : head_line [(NEWLINE head_line)+]
+head_line           : field
+                    | voice
+                    | directive
+
+
+id                  : "X:" [" "] _content
+title               : "T:" [" "] _content
+key                 : "K:" [" "] _content
+base_length         : "L:" [" "] _content
+meter               : "M:" [" "] _content
+_content            : /[^\]\n\r]+/
+field               : id
+                    | title
+                    | key
+                    | base_length
+                    | meter
+inline_field        : "[" field "]"
+
+voice_name          : /\w+/
+_voice_param_name   : /\w+/
+_voice_param_content: /\w+/
+voice_param         : _voice_param_name "=" _voice_param_content
+voice               : "V:" [" "] voice_name [" "+ voice_param]
+
+directive_name      : /\w+/
+directive_content   : /[^\n\r]+/
+directive           : "%%" directive_name " " directive_content
+
+// --------------------
+// body
+// --------------------
+
+body                : body_line [(NEWLINE body_line)+]
+body_line           : _notes
+                    | voice_statement
+
+_notes              : _notes [_interlude] _notes
+                    | note
+                    | chord
+                    | inline_field
+voice_stat_name     : /\w+/
+_voice              : "V:" [" "] voice_stat_name
+voice_statement     : "[" _voice "]" _notes
+
+_interlude          : [space] barline [space]
+space               : " "
+barline             : /[:\|\]]+/
+
+chord               : "[" note [note+] "]"
+note                : [tuplet] [_decoration (" " _decoration)*] [accidental] pitch [duration] [space]
+
+fingerings          : /[1-5]/
+dynamics            : "sfz"
+                    | "ffff" | "fff" | "ff" | "f" | "mf"
+                    | "mp" | "p" | "pp" | "ppp" | "pppp"
+_decoration_symbol  : fingerings | dynamics
+_decoration         : "!" _decoration_symbol "!"
+
+accidental          : "^^" -> double_sharp
+                    | "^"  -> sharp
+                    | "="  -> natural
+                    | "_"  -> flat
+                    | "__" -> double_flat
+
+octave_up           : "'"
+octave_down         : ","
+_pitch_large        : /[A-G]/ [octave_down+]
+_pitch_small        : /[a-g]/ [octave_up+]
+pitch               : _pitch_large | _pitch_small
+
+duration            : INT ["/" INT]
+
+tuplet              : "(" tuplet_denominator [ ":" tuplet_numerator ":" tuplet_notenum]
+tuplet_denominator  : /[2-9]/
+tuplet_numerator    : /[1-9]/?
+tuplet_notenum      : /[1-9]/?
+
+%import common.INT
+%import common.NEWLINE
