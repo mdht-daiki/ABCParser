@@ -1,4 +1,4 @@
-from fraction import Fraction
+from fractions import Fraction
 
 
 class Length:
@@ -7,3 +7,6 @@ class Length:
 
     def get(self):
         return Fraction(self.numerator, self.denominator)
+    
+    def __str__(self):
+      return f"{self.numerator}/{self.denominator}"

@@ -1,5 +1,7 @@
 from encoder.encoder import json_dump
 from environment.Voice import Voice
+from notelength.Length import Length
+from notelength.Meter import Meter
 from lark import Token
 
 class HeadVisitor: 
@@ -25,10 +27,10 @@ class HeadVisitor:
     env.set("title", tree.children[0].value)
 
   def meter(self, tree, env):
-    env.set("meter", tree.children[0].value)
+    env.set("meter", Meter(tree.children[0].value))
   
   def base_length(self, tree, env):
-    env.set("base_length", tree.children[0].value)
+    env.set("base_length", Length(tree.children[0].value))
   
   def key(self, tree, env):
     env.set("key", tree.children[0].value)

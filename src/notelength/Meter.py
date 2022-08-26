@@ -1,10 +1,7 @@
-from time.Length import Length
+from notelength.Length import Length
 
 
 class Meter(Length):
-    def __init__(self, str):
-        super().__init__(str)
-
     def is_compound(self):
         return self.numerator % 3 == 0 and self.denominator == 8
 

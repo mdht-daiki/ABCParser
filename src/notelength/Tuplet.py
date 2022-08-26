@@ -1,5 +1,4 @@
-from fraction import Fraction
-
+from fractions import Fraction
 
 class Tuplet:
     def __init__(self, note, is_compound):
