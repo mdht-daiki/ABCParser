@@ -38,18 +38,20 @@ class HeadVisitor:
         env.set("key", Key(tree.children[0].value))
 
     def directive(self, tree, env):
-        rl = []
+        name = None
+        content = None
         for child in tree.children:
-            r = self.visit(child, env)
-            if r:
-                rl.append(r)
-        env.set(rl[0], rl[1])
+            if child.data == "directive_name":
+                name = self.directive_name(child)
+            elif child.data == "directive_content":
+                content = self.directive_content(child)
+        env.set(name, content)
         print(json_dump(env))
 
-    def directive_name(self, tree, env):
+    def directive_name(self, tree):
         return tree.children[0].value
 
-    def directive_content(self, tree, env):
+    def directive_content(self, tree):
         return tree.children[0].value
 
     def voice(self, tree, env):

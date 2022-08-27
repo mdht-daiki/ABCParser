@@ -16,7 +16,8 @@ class BodyVisitor:
         return f(tree, tune)
 
     def voice_statement(self, tree, tune):
-        voice = self.visit(tree.children[0], tune)
+        if tree.children[0].data == "voice_stat_name":
+            voice = self.voice_stat_name(tree.children[0])
         n = NoteVisitor(tune)
         for child in tree.children[1:]:
             if child.data in ["note", "chord"]:
@@ -24,11 +25,11 @@ class BodyVisitor:
                 tune.push_note(voice, note)
                 print(json_dump(tune))
             elif child.data == "barline":
-                barline = self.visit(child, tune)
+                barline = self.barline(child)
                 tune.get_voice(voice).get_last_note().set_barline(barline)
 
-    def voice_stat_name(self, tree, tune):
+    def voice_stat_name(self, tree):
         return tree.children[0].value
 
-    def barline(self, tree, note):
+    def barline(self, tree):
         return tree.children[0].value
