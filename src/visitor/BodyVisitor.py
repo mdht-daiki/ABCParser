@@ -19,7 +19,7 @@ class BodyVisitor:
         voice = self.visit(tree.children[0], tune)
         n = NoteVisitor(tune)
         for child in tree.children[1:]:
-            if child.data == "note":
+            if child.data in ["note", "chord"]:
                 note = n.visit(child, tune)
                 tune.push_note(voice, note)
                 print(json_dump(tune))

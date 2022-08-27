@@ -1,12 +1,12 @@
-from visitor.Visitor import Visitor
 import os
 import sys
 from lark import Lark
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
+from visitor.Visitor import Visitor
 
 with open("abc_grammar.lark", "r", encoding="utf-8") as grammar:
-    parser = Lark(grammar.read(), start="sentence")
+  parser = Lark(grammar.read(), start="sentence")
 
 input = """X: 1
 T: Cooley's
