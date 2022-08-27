@@ -1,10 +1,11 @@
 from notelength.Length import Length
 
+
 class Tuplet(Length):
     def __init__(self, denominator, numerator):
         self.denominator = denominator
         self.numerator = numerator
-    
+
     def mul(self, length):
         return Length(length.get() * self.get())
 

@@ -11,12 +11,12 @@ class NoteVisitor:
         self.offset = Offset(tune.get("base_length"))
         self.current_tuplet = None
         self.tuplet_count = None
-    
+
     def _update(self, note):
-      if self.current_tuplet and self.tuplet_count > 0:
-        note.set_tuplet(self.current_tuplet)
-        self.tuplet_count -= 1
-      self.offset = note.get_next_offset()
+        if self.current_tuplet and self.tuplet_count > 0:
+            note.set_tuplet(self.current_tuplet)
+            self.tuplet_count -= 1
+        self.offset = note.get_next_offset()
 
     def __default__(self, tree, tune):
         for child in tree.children:
@@ -53,12 +53,12 @@ class NoteVisitor:
         note.set_duration(int(tree.children[0].value))
 
     def tuplet(self, tree, tune):
-      d = {
-        "tuplet_denominator": None,
-        "tuplet_numerator": None,
-        "tuplet_count": None
-      }
-      for child in tree.children:
-        if child.data in d.keys():
-          d[child.data] = int(child.children[0].value)
-      self.current_tuplet, self.tuplet_count = create_tuplet(tune, d)
+        d = {
+            "tuplet_denominator": None,
+            "tuplet_numerator": None,
+            "tuplet_count": None
+        }
+        for child in tree.children:
+            if child.data in d.keys():
+                d[child.data] = int(child.children[0].value)
+        self.current_tuplet, self.tuplet_count = create_tuplet(tune, d)

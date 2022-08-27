@@ -1,13 +1,13 @@
 class Environment():
-  def __init__(self, parent_env):
-    self._parent_env = parent_env
-    self._env = dict()
+    def __init__(self, parent_env):
+        self._parent_env = parent_env
+        self._env = dict()
 
-  def get(self, key):
-    value = self._env.get(key, None)
-    if not value and self._parent_env is not None:
-      value = self._parent_env.get(key)
-    return value
+    def get(self, key):
+        value = self._env.get(key, None)
+        if not value and self._parent_env is not None:
+            value = self._parent_env.get(key)
+        return value
 
-  def set(self, key, value):
-    self._env[key] = value
+    def set(self, key, value):
+        self._env[key] = value

@@ -1,8 +1,7 @@
 from lark import Token
-
 from encoder.encoder import json_dump
-
 from visitor.NoteVisitor import NoteVisitor
+
 
 class BodyVisitor:
     def __default__(self, tree, tune):
@@ -31,6 +30,5 @@ class BodyVisitor:
     def voice_stat_name(self, tree, tune):
         return tree.children[0].value
 
-    
     def barline(self, tree, note):
         return tree.children[0].value
