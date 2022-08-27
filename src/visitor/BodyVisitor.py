@@ -1,5 +1,4 @@
 from lark import Token
-from encoder.encoder import json_dump
 from visitor.NoteVisitor import NoteVisitor
 
 
@@ -11,7 +10,6 @@ class BodyVisitor:
     def visit(self, tree, tune):
         if isinstance(tree, Token):
             return tree.value
-        print(f"now I'm visiting {tree.data}")
         f = getattr(self, tree.data, self.__default__)
         return f(tree, tune)
 
@@ -23,7 +21,6 @@ class BodyVisitor:
             if child.data in ["note", "chord"]:
                 note = n.visit(child, tune)
                 tune.push_note(voice, note)
-                print(json_dump(tune))
             elif child.data == "barline":
                 barline = self.barline(child)
                 tune.get_voice(voice).get_last_note().set_barline(barline)

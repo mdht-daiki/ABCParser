@@ -11,6 +11,9 @@ class Visitor:
         self.tree = tree
         self.env = Tune(None)
         self.visit(self.tree, self.env)
+    
+    def get_env(self):
+        return self.env
 
     def __default__(self, tree, env):
         for child in tree.children:
@@ -19,7 +22,6 @@ class Visitor:
     def visit(self, tree, env):
         if isinstance(tree, Token):
             return tree.value
-        print(f"now I'm visiting {tree.data}")
         f = getattr(self, tree.data, self.__default__)
         return f(tree, env)
 

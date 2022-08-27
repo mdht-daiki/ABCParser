@@ -11,8 +11,6 @@ class MyEncoder(json.JSONEncoder):
     def default(self, o):
         if isinstance(o, (Tune, Note, Voice, Key, Accidental)):
             return {'_type': o.__class__.__name__, 'value': o.__dict__}
-        # if isinstance(o, Voice):
-        #   return {'_type': 'Voice', 'value': o.__dict__}
         if isinstance(o, Length):
             return {'_type': o.__class__.__name__, 'value': str(o)}
         return json.JSONEncoder.default(self, o)

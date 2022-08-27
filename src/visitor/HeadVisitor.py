@@ -1,4 +1,3 @@
-from encoder.encoder import json_dump
 from environment.Voice import Voice
 from notelength.Length import Length
 from notelength.Meter import Meter
@@ -14,13 +13,11 @@ class HeadVisitor:
     def visit(self, tree, env):
         if isinstance(tree, Token):
             return tree.value
-        print(f"now I'm visiting {tree.data}")
         f = getattr(self, tree.data, self.__default__)
         return f(tree, env)
 
     def field(self, tree, env):
         self.visit(tree.children[0], env)
-        print(json_dump(env))
 
     def id(self, tree, env):
         env.set("id", tree.children[0].value)
@@ -46,7 +43,6 @@ class HeadVisitor:
             elif child.data == "directive_content":
                 content = self.directive_content(child)
         env.set(name, content)
-        print(json_dump(env))
 
     def directive_name(self, tree):
         return tree.children[0].value
@@ -59,14 +55,11 @@ class HeadVisitor:
         for child in tree.children:
             self.visit(child, v)
         env.set_voice(v)
-        print(json_dump(env))
 
     def voice_name(self, tree, v):
         v.set_name(tree.children[0].value)
-        # print(v.getall())
 
     def voice_param(self, tree, v):
         key = tree.children[0].value
         value = tree.children[1].value
         v.set_param(key, value)
-        # print(v.getall())

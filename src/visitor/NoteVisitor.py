@@ -54,7 +54,6 @@ class NoteVisitor:
     def visit(self, tree, tune):
         if isinstance(tree, Token):
             return tree.value
-        print(f"now I'm visiting {tree.data}")
         f = getattr(self, tree.data, self.__default__)
         return f(tree, tune)
 

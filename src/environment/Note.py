@@ -1,6 +1,5 @@
 from pitch.Accidental import Accidental
 from notelength.Length import Length
-from fractions import Fraction
 
 
 class Note:
