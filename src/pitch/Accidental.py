@@ -1,9 +1,9 @@
-from enum import Enum, auto
+from enum import Enum
 
 
-class Accidental(Enum):
-    DOUBLE_SHARP = auto()
-    SHARP = auto()
-    NATURAL = auto()
-    FLAT = auto()
-    DOUBLE_FLAT = auto()
+class Accidental(str, Enum):
+    DOUBLE_SHARP = "double_sharp"
+    SHARP = "sharp"
+    NATURAL = "natural"
+    FLAT = "flat"
+    DOUBLE_FLAT = "double_flat"

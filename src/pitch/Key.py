@@ -49,7 +49,8 @@ class Key:
             else:
                 print("error: invalid key string")
                 exit()
-        self.accidental_num = get_accidental_num(tonic, scale_type)
+        return get_accidental_num(tonic, scale_type)
+        
 
     def get_default_accidental(self, pitch):
         if self.accidental_num < 0 and pitch in key_accidental_order[self.accidental_num:]:

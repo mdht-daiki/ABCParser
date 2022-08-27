@@ -2,6 +2,7 @@ from encoder.encoder import json_dump
 from environment.Voice import Voice
 from notelength.Length import Length
 from notelength.Meter import Meter
+from pitch.Key import Key
 from lark import Token
 
 class HeadVisitor: 
@@ -33,7 +34,7 @@ class HeadVisitor:
     env.set("base_length", Length(tree.children[0].value))
   
   def key(self, tree, env):
-    env.set("key", tree.children[0].value)
+    env.set("key", Key(tree.children[0].value))
 
   def directive(self, tree, env):
     rl = []

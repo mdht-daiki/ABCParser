@@ -15,3 +15,6 @@ class Voice:
   
   def set_param(self, key, value):
     self.param[key] = value
+  
+  def get_last_note(self):
+    return self.body[-1]

@@ -26,5 +26,5 @@ class Visitor:
     getattr(self.h, tree.data, self.h.__default__)(tree, env)
   
   def body(self, tree, env):
-    # getattr(self.b, tree.data, self.b.__default__)(tree, env)
-    pass
+    getattr(self.b, tree.data, self.b.__default__)(tree, env)
+    
