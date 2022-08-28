@@ -17,15 +17,16 @@ class BodyVisitor:
         if tree.children[0].data == "voice_stat_name":
             voice = self.voice_stat_name(tree.children[0])
         n = NoteVisitor(tune)
+        line = []
         for child in tree.children[1:]:
             if child.data in ["note", "chord"]:
-                note = n.visit(child, tune)
-                tune.push_note(voice, note)
+                line.append(n.visit(child, tune))
             elif child.data == "barline":
                 barline = self.barline(child)
-                tune.get_voice(voice).get_last_note().set_barline(barline)
+                line[-1].set_barline(barline)
             elif child.data == "space":
-                tune.get_voice(voice).get_last_note().set_beam_end()
+                line[-1].set_beam_end()
+        tune.push_line(voice, line)
 
     def voice_stat_name(self, tree):
         return tree.children[0].value

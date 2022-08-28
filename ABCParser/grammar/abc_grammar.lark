@@ -42,6 +42,7 @@ body_line           : _notes
                     | voice_statement
 
 _notes              : _notes [_interlude] _notes
+                    | _notes [_interlude]
                     | note
                     | chord
                     | inline_field
