@@ -72,7 +72,7 @@ class NoteVisitor:
             if child.data in accidentals:
                 getattr(n, child.data)()
             elif child.data == "tuplet":
-                self.tuplet(child, tune)
+                n.is_start_tuplet(self.tuplet(child, tune))
             elif child.data == "space":
                 n.set_beam_end()
             else:
@@ -99,3 +99,8 @@ class NoteVisitor:
             if child.data in d.keys():
                 d[child.data] = int(child.children[0].value)
         self.current_tuplet, self.tuplet_count = create_tuplet(tune, d)
+        return list(d.values())
+    
+    def fingerings(self, tree, note):
+        note.set_fingerings(int(tree.children[0].value))
+

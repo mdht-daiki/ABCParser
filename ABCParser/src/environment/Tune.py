@@ -11,6 +11,9 @@ class Tune(Environment):
 
     def get_voice(self, name):
         return self.voice[name]
+    
+    def get_voices(self):
+        return self.voice
 
     def push_note(self, voice, note):
         self.voice[voice].append_body(note)

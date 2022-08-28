@@ -24,6 +24,8 @@ class BodyVisitor:
             elif child.data == "barline":
                 barline = self.barline(child)
                 tune.get_voice(voice).get_last_note().set_barline(barline)
+            elif child.data == "space":
+                tune.get_voice(voice).get_last_note().set_beam_end()
 
     def voice_stat_name(self, tree):
         return tree.children[0].value

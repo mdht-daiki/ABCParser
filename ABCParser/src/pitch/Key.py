@@ -57,3 +57,6 @@ class Key:
         elif self.accidental_num > 0 and pitch in key_accidental_order[:self.accidental_num]:
             return Accidental.SHARP
         return Accidental.NATURAL
+    
+    def __str__(self):
+        return self.char
