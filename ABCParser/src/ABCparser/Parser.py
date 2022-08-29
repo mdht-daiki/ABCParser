@@ -21,3 +21,9 @@ class Parser:
   
   def convert_to_abc(self):
     print(Converter(self.tune).abc())
+  
+  def get_finger_list(self):
+    return self.tune.get_finger_list()
+  
+  def set_fingers(self, finger_list):
+    self.tune.set_fingers(finger_list)

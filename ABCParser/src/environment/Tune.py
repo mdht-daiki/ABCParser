@@ -29,3 +29,22 @@ class Tune(Environment):
         # lines = (voice1のbody1行目, voice2のbody1行目, ... )
         for line, voice in zip(lines, voices):
           yield line, voice.get_name()
+    
+    def get_finger_list(self):
+        finger_list = []
+        bg = self.body_generator()
+        for line, _ in bg:
+            finger_list_line = []
+            for note in line:
+                finger_list_line.append(note.get_fingering())
+            finger_list.append(finger_list_line)
+        return finger_list
+    
+    def set_fingers(self, finger_list):
+        bg = self.body_generator()
+        finger_list_index = 0
+        for line, _ in bg:
+            for note, finger in zip(line, finger_list[finger_list_index]):
+                note.set_fingerings(finger)
+            finger_list_index += 1
+            
