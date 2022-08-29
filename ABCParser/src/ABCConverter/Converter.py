@@ -1,5 +1,5 @@
 from pitch.Accidental import Accidental
-from copy import deepcopy
+
 
 class Converter:
   def __init__(self, tune):
@@ -19,15 +19,7 @@ class Converter:
     for voice in voices:
       abc_text += self.voice_head(voice)
     
-    def body_generator(voices):
-      bodies = []
-      for voice in voices:
-        bodies.append(deepcopy(voice.get_body()))
-      for lines in zip(*bodies):
-        for line, voice in zip(lines, voices):
-          yield line, voice.get_name()
-
-    bg = body_generator(voices)
+    bg = tune.body_generator()
 
     for line, name in bg:
       abc_text += self.line(line, name)
